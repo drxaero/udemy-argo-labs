@@ -12,10 +12,10 @@ spec:
       app: vote
   strategy: 
     blueGreen:
-      autoPromotionEnabled: true
-      autoPromotionSeconds: 30
-      activeService: vote
-      previewService: vote-preview
+      autoPromotionEnabled: true # 啟動自動從舊版服務切換到新版本，不然要手動切換
+      autoPromotionSeconds: 30   # 當新版本部署到 `vote-preview` 後，有 30 秒的 preview 時間可以讓人確認是否 ok。之後才會正式切換到新版本；且會刪除舊版本。
+      activeService: vote        # 最終用來指向正式流量的 Service 名稱
+      previewService: vote-preview # 用來驗證和 preview 新版本的 Service 名稱
   template:
     metadata:
       labels:
@@ -23,7 +23,7 @@ spec:
         tier: front
     spec:
       containers:
-      - image: schoolofdevops/vote:v1
+      - image: schoolofdevops/vote:v3
         name: vote
         imagePullPolicy: Always
         resources: 

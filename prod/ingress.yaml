@@ -1,0 +1,19 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: vote
+  namespace: instavote  # Janus: 這行好像沒有作用，因為 Kustomize 會將 `namespace` 設定為 `prod`，而不是 `instavote`
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: vote.example.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: vote  # 雖然 `vote` service 在 namespaces `prod` 和 `staging` 中都存在，但因為這個 Ingress 的 namespace 是 `prod`，所以這裡會連到 `prod` namespace 中的 `vote` service。
+            port:
+              number: 80

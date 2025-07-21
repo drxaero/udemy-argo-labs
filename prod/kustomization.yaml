@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- ../base
+- ingress.yaml
+namespace: prod
+commonAnnotations:
+  supported-by: sre@example.com
+labels:
+- includeSelectors: false
+  pairs:
+    project: instavote
+patches:
+- path: service.yaml          # Kustomize 不要求 base/ 也有相同檔名的 `service.yaml`        ，只要能 patch 得到即可
+- path: preview-service.yaml  # Kustomize 不要求 base/ 也有相同檔名的 `preview-service.yaml`，只要能 patch 得到即可
+- path: rollout.yaml          # Kustomize 不要求 base/ 也有相同檔名的 `rollout.yaml`        ，只要能 patch 得到即可

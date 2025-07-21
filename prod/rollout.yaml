@@ -7,7 +7,14 @@ spec:
   strategy:
     blueGreen: null
     canary:
+      canaryService: vote-preview
+      stableService: vote
+      trafficRouting:
+        nginx:
+          stableIngress: vote
       steps:
+      - setCanaryScale:
+          replicas: 3  # 指示 Argo Rollouts 在 Canary 部署的第一步先將新版的 Pod 複本數設為3個，為後續流量逐步切換到新版做準備。
       - setWeight: 20
       - pause:
           duration: 10s

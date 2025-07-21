@@ -12,3 +12,4 @@ labels:
 patches:
 - path: service.yaml          # Kustomize 不要求 base/ 也有相同檔名的 `service.yaml`        ，只要能 patch 得到即可
 - path: preview-service.yaml  # Kustomize 不要求 base/ 也有相同檔名的 `preview-service.yaml`，只要能 patch 得到即可
+- path: rollout.yaml          # Kustomize 不要求 base/ 也有相同檔名的 `rollout.yaml`        ，只要能 patch 得到即可

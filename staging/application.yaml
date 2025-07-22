@@ -1,0 +1,20 @@
+# 不用 Kustomization，因為用了的話，會導致 namespace 被覆蓋成 `staging`，而不是 `argocd`。
+# 用法：`kubectl apply -f application.yaml`
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vote-staging
+  namespace: argocd
+spec:
+  destination:
+    namespace: staging
+    server: https://kubernetes.default.svc
+  project: instavote
+  source:
+    path: staging
+    repoURL: https://github.com/drxaero/udemy-argo-labs.git
+    targetRevision: main
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

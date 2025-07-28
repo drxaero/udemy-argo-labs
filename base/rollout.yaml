@@ -23,7 +23,7 @@ spec:
         tier: front
     spec:
       containers:
-      - image: schoolofdevops/vote:v8
+      - image: drxaero/udemy-vote:bb59e96   # 這是 DockerHub 上的 image
         name: vote
         imagePullPolicy: Always
         resources: 
